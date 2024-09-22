@@ -1,0 +1,15 @@
+Part 1: Surrounding blocks
+Part 2: Grids
+
+Part 3: Horizontal Composition
+Part 4: Vertical composition
+Part 5: Flipping horizontally
+Part 6: Flipping vertically
+Part 7: Trimming blocks
+Part 8: Padding blocks
+
+Part 9: Another new block
+Part 10: Testing your new block
+Part 11: Equality testing
+
+Part 12: Make an art (last to be done)

@@ -84,7 +84,7 @@ public class Boxed implements AsciiBlock {
 
   /**
    * Determine how many columns are in the block.
-   *
+   *oxed(
    * @return the number of columns
    */
   public int width() {
