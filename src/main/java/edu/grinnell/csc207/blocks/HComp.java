@@ -71,7 +71,33 @@ public class HComp implements AsciiBlock {
    *   if i is outside the range of valid rows.
    */
   public String row(int i) throws Exception {
-    return "";  // STUB
+    String row = new String("");
+
+    switch (align) {
+      case TOP:
+        for (AsciiBlock block : blocks) {
+          if (i > block.height()) {
+            row = row.concat(" ".repeat(block.width()));
+          } else {
+            row = row.concat(block.row(i));
+          } // if else
+        } // for   
+        break;
+    
+      case BOTTOM:
+      for (AsciiBlock block : blocks) {
+        if (i < this.height() - block.height()) {
+          row = row.concat(" ".repeat(block.width()));
+        } else {
+          row = row.concat(block.row(i - block.height()));
+        } // if else
+      } // for   
+      break;
+
+      default: // CENTER
+        
+    }
+    return row;  // STUB
   } // row(int)
 
   /**
@@ -80,7 +106,15 @@ public class HComp implements AsciiBlock {
    * @return the number of rows
    */
   public int height() {
-    return 0;   // STUB
+    int maxHeight = 0;
+    //find the maximum height among blocks to set as height
+
+    for(AsciiBlock block : blocks) {
+      if (block.height() > maxHeight) {
+        maxHeight = block.height();
+      }
+    } // for
+    return maxHeight;   // STUB
   } // height()
 
   /**
@@ -89,7 +123,15 @@ public class HComp implements AsciiBlock {
    * @return the number of columns
    */
   public int width() {
-    return 0;   // STUB
+    int maxWidth = 0;
+
+    //find the maximum width among blocks to set as width
+    for(AsciiBlock block : blocks) {
+      if (block.width() > maxWidth) {
+        maxWidth = block.width();
+      }
+    } // for
+    return maxWidth; 
   } // width()
 
   /**
@@ -104,4 +146,6 @@ public class HComp implements AsciiBlock {
   public boolean eqv(AsciiBlock other) {
     return false;       // STUB
   } // eqv(AsciiBlock)
+
+
 } // class HComp

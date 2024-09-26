@@ -1,7 +1,7 @@
-Part 1: Surrounding blocks
-Part 2: Grids
+Part 1: Surrounding blocks [DONE]
+Part 2: Grids [DONE]
 
-Part 3: Horizontal Composition
+Part 3: Horizontal Composition [IN PROGRESS]
 Part 4: Vertical composition
 Part 5: Flipping horizontally
 Part 6: Flipping vertically
