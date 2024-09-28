@@ -89,13 +89,19 @@ public class HComp implements AsciiBlock {
         if (i < this.height() - block.height()) {
           row = row.concat(" ".repeat(block.width()));
         } else {
-          row = row.concat(block.row(i - block.height()));
+          row = row.concat(block.row(i - (this.height() - block.height())));
         } // if else
       } // for   
       break;
 
       default: // CENTER
-        
+        for (AsciiBlock block : blocks) {
+          if (i < (this.height() - block.height()) / 2 || i >= ((this.height() + block.height()) / 2)) {
+            row = row.concat(" ".repeat(block.width()));
+          } else {
+            row = row.concat(block.row(i - ((this.height() - block.height()) / 2)));
+          } // if else
+        } // for 
     }
     return row;  // STUB
   } // row(int)
@@ -123,15 +129,13 @@ public class HComp implements AsciiBlock {
    * @return the number of columns
    */
   public int width() {
-    int maxWidth = 0;
+    int totalWidth = 0;
 
-    //find the maximum width among blocks to set as width
+    //Sum the height of the blocks to set as width
     for(AsciiBlock block : blocks) {
-      if (block.width() > maxWidth) {
-        maxWidth = block.width();
-      }
+      totalWidth += block.width();
     } // for
-    return maxWidth; 
+    return totalWidth; 
   } // width()
 
   /**
