@@ -78,7 +78,73 @@ public class Trimmed implements AsciiBlock {
    *   If the row is invalid.
    */
   public String row(int i) throws Exception {
-    throw new Exception("Not yet implemented"); // STUB
+    String row = new String("");
+    switch(halign) {
+      case LEFT:
+        switch (valign) {
+          case TOP:
+            if(i < this.height){
+              row = block.row(i).substring(0,this.width);
+            }
+            break;
+        
+          case BOTTOM:
+            if(i > block.height() - this.height){
+              row = block.row(i + (block.height() - this.height)).substring(0,this.width);
+            }
+            break;
+
+          default: // CENTER
+            if (i >= (block.height() - this.height()) / 2 && i < ((block.height() - this.height()) / 2)) {
+              row = block.row(i + ((block.height() - this.height)) / 2).substring(0,this.width);
+            }
+            break;
+        }
+        break;
+
+      case RIGHT:
+        switch (valign) {
+          case TOP:
+            if(i < this.height){
+              row = block.row(i).substring(this.width, block.width());
+            }
+            break;
+        
+          case BOTTOM:
+            if(i > block.height() - this.height){
+              row = block.row(i + (block.height() - this.height)).substring(this.width, block.width());
+            }
+            break;
+
+          default: // CENTER
+            if (i >= (block.height() - this.height()) / 2 && i < ((block.height() - this.height()) / 2)) {
+              row = block.row(i + ((block.height() - this.height)) / 2).substring(this.width, block.width());
+            }
+            break;
+        }
+    
+      default: // CENTER
+        switch (valign) {
+          case TOP:
+            if(i < this.height){
+              row = block.row(i).substring(((block.width() - this.width) / 2), ((block.width() + this.width) / 2));
+            }
+            break;
+        
+          case BOTTOM:
+            if(i > block.height() - this.height){
+              row = block.row(i + (block.height() - this.height)).substring(((block.width() - this.width) / 2), ((block.width() + this.width) / 2));
+            }
+            break;
+
+          default: // CENTER
+            if (i >= (block.height() - this.height()) / 2 && i < ((block.height() - this.height()) / 2)) {
+              row = block.row(i + ((block.height() - this.height)) / 2).substring(((block.width() - this.width) / 2), ((block.width() + this.width) / 2));
+            }
+            break;
+        }
+    }
+    return row;
   } // row(int)
 
   /**
@@ -87,7 +153,7 @@ public class Trimmed implements AsciiBlock {
    * @return the number of rows
    */
   public int height() {
-    return 0;   // STUB
+    return this.height;
   } // height()
 
   /**
@@ -96,7 +162,7 @@ public class Trimmed implements AsciiBlock {
    * @return the number of columns
    */
   public int width() {
-    return 0;   // STUB
+    return this.width;
   } // width()
 
   /**
