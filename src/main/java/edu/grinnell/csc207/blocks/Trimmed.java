@@ -175,6 +175,13 @@ public class Trimmed implements AsciiBlock {
    *    false otherwise.
    */
   public boolean eqv(AsciiBlock other) {
-    return false;       // STUB
+    return ((other instanceof Trimmed) && (this.eqv((Trimmed) other)));
+  } // eqv(AsciiBlock)
+
+  public boolean eqv(Trimmed other) {
+    return (this.block == other.block) && (this.halign == other.halign)
+     && (this.valign == other.valign)
+     && (this.width == other.width) 
+     && (this.height == other.height) ;
   } // eqv(AsciiBlock)
 } // class Trimmed

@@ -1,14 +1,14 @@
-Part 1: Surrounding blocks [DONE]
-Part 2: Grids [DONE]
+Part 1: Surrounding blocks        [DONE]
+Part 2: Grids                     [DONE]
 
-Part 3: Horizontal Composition [MOSTLY DONE - eqv() to do]
-Part 4: Vertical composition [MOSTLY DONE - eqv() to do]
+Part 3: Horizontal Composition    [MOSTLY DONE - eqv() to do]
+Part 4: Vertical composition      [MOSTLY DONE - eqv() to do]
 Part 5: Flipping horizontally
 Part 6: Flipping vertically
-Part 7: Trimming blocks [MOSTLY DONE - eqv() to do]
-Part 8: Padding blocks
+Part 7: Trimming blocks           [MOSTLY DONE - eqv() to do]
+Part 8: Padding blocks            [SKIPPED]
 
-Part 9: Another new block
+Part 9: Another new block         [MOSTLY DONE - eqv() to do]
 Part 10: Testing your new block
 Part 11: Equality testing
 

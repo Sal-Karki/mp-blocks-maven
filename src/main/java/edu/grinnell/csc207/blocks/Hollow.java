@@ -48,10 +48,10 @@ public class Hollow implements AsciiBlock {
     String row = new String("");
     if (i == 0){
       row = block.row(i);
-    } else if (i == block.height()) {
+    } else if (i == block.height() - 1) {
       row = block.row(i);
     } else {
-      row = block.row(i).substring(0).concat(" ".repeat(block.width() - 2)).concat(block.row(i).substring(block.width() - 1));
+      row = block.row(i).substring(0,1).concat(" ".repeat(block.width() - 2)).concat(block.row(i).substring(block.width() - 1));
     }
     return row;
   } // row(int)
@@ -84,6 +84,10 @@ public class Hollow implements AsciiBlock {
    *    false otherwise.
    */
   public boolean eqv(AsciiBlock other) {
-    return false;       // STUB
+    return ((other instanceof Hollow) && (this.eqv((Hollow) other)));
   } // eqv(AsciiBlock)
-} // class Trimmed
+
+  public boolean eqv(Hollow other) {
+    return (this.block == other.block);
+  } // class Trimmed
+}

@@ -73,35 +73,50 @@ public class VComp implements AsciiBlock {
    */
   public String row(int i) throws Exception {
     String row = new String("");
+    int previousHeight = 0;
+    int currentHeight = 0;
+
     switch (align) {
       case LEFT:
-        for (AsciiBlock block : blocks) {
-          if (i > block.width()) {
-            row = row.concat(" ".repeat(this.width() - block.width()));
+        
+
+        for(AsciiBlock block : blocks) {
+          currentHeight = previousHeight + block.height();
+          if (i < currentHeight) {
+            String spaces = " ".repeat(this.width() - block.width());
+            row = block.row(i - previousHeight).concat(spaces);
+            break;
           } else {
-            row = row.concat(block.row(i));
-          } // if else
-        } // for   
+            previousHeight = currentHeight;
+          }
+        }
         break;
     
       case RIGHT:
-      for (AsciiBlock block : blocks) {
-        if (i < this.width() - block.width()) {
-          row = row.concat(" ".repeat(this.width() - block.width()));
+      for(AsciiBlock block : blocks) {
+        currentHeight = previousHeight + block.height();
+        if (i < currentHeight) {
+          String spaces = " ".repeat(this.width() - block.width());
+          row = spaces.concat(block.row(i - previousHeight));
+          break;
         } else {
-          row = row.concat(block.row(i - (this.width() - block.width())));
-        } // if else
-      } // for   
+          previousHeight = currentHeight;
+        }
+      }
       break;
 
       default: // CENTER
-        for (AsciiBlock block : blocks) {
-          if (i < (this.width() - block.width()) / 2 || i >= ((this.width() + block.width()) / 2)) {
-            row = row.concat(" ".repeat((this.width() - block.width()) / 2));
-          } else {
-            row = row.concat(block.row(i - ((this.width() - block.width()) / 2)));
-          } // if else
-        } // for 
+      for(AsciiBlock block : blocks) {
+        currentHeight = previousHeight + block.height();
+        if (i < currentHeight) {
+          String spaces = " ".repeat((this.width() - block.width()) / 2);
+
+          row = spaces.concat(block.row(i - previousHeight)).concat(spaces);
+          break;
+        } else {
+          previousHeight = currentHeight;
+        }
+      }
     }
     return row;  // STUB
   } // row(int)
@@ -148,6 +163,10 @@ public class VComp implements AsciiBlock {
    *    false otherwise.
    */
   public boolean eqv(AsciiBlock other) {
-    return false;       // STUB
+    return ((other instanceof VComp) && (this.eqv((VComp) other)));
+  } // eqv(AsciiBlock)
+
+  public boolean eqv(VComp other) {
+    return (this.blocks == other.blocks) && (this.align == other.align);
   } // eqv(AsciiBlock)
 } // class VComp

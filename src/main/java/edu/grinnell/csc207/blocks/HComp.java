@@ -76,10 +76,10 @@ public class HComp implements AsciiBlock {
     switch (align) {
       case TOP:
         for (AsciiBlock block : blocks) {
-          if (i > block.height()) {
-            row = row.concat(" ".repeat(block.width()));
-          } else {
+          if (i < block.height()) {
             row = row.concat(block.row(i));
+          } else {
+            row = row.concat(" ".repeat(block.width()));
           } // if else
         } // for   
         break;
@@ -148,7 +148,11 @@ public class HComp implements AsciiBlock {
    *    false otherwise.
    */
   public boolean eqv(AsciiBlock other) {
-    return false;       // STUB
+    return ((other instanceof HComp) && (this.eqv((HComp) other)));
+  } // eqv(AsciiBlock)
+
+  public boolean eqv(HComp other) {
+    return (this.blocks == other.blocks) && (this.align == other.align);
   } // eqv(AsciiBlock)
 
 
