@@ -72,7 +72,38 @@ public class VComp implements AsciiBlock {
    *   if i is outside the range of valid rows.
    */
   public String row(int i) throws Exception {
-    return "";  // STUB
+    String row = new String("");
+    switch (align) {
+      case LEFT:
+        for (AsciiBlock block : blocks) {
+          if (i > block.width()) {
+            row = row.concat(" ".repeat(this.width() - block.width()));
+          } else {
+            row = row.concat(block.row(i));
+          } // if else
+        } // for   
+        break;
+    
+      case RIGHT:
+      for (AsciiBlock block : blocks) {
+        if (i < this.width() - block.width()) {
+          row = row.concat(" ".repeat(this.width() - block.width()));
+        } else {
+          row = row.concat(block.row(i - (this.width() - block.width())));
+        } // if else
+      } // for   
+      break;
+
+      default: // CENTER
+        for (AsciiBlock block : blocks) {
+          if (i < (this.width() - block.width()) / 2 || i >= ((this.width() + block.width()) / 2)) {
+            row = row.concat(" ".repeat((this.width() - block.width()) / 2));
+          } else {
+            row = row.concat(block.row(i - ((this.width() - block.width()) / 2)));
+          } // if else
+        } // for 
+    }
+    return row;  // STUB
   } // row(int)
 
   /**
@@ -81,7 +112,13 @@ public class VComp implements AsciiBlock {
    * @return the number of rows
    */
   public int height() {
-    return 0;   // STUB
+    int totalHeight = 0;
+
+    //Sum the height of the blocks to set as height
+    for(AsciiBlock block : blocks) {
+      totalHeight += block.height();
+    } // for
+    return totalHeight; // STUB
   } // height()
 
   /**
@@ -90,7 +127,15 @@ public class VComp implements AsciiBlock {
    * @return the number of columns
    */
   public int width() {
-    return 0;   // STUB
+    int maxWidth = 0;
+    //find the maximum width among blocks to set as width
+
+    for(AsciiBlock block : blocks) {
+      if (block.width() > maxWidth) {
+        maxWidth = block.width();
+      }
+    } // for
+    return maxWidth;   // STUB
   } // width()
 
   /**
