@@ -1,8 +1,8 @@
 package edu.grinnell.csc207.blocks;
 
 /**
- * A completely empty block. Used mostly for checking strange edge cases.
- * (Or perhaps used to create such cases.)
+ * A completely empty block. Used mostly for checking strange edge cases. (Or perhaps used to create
+ * such cases.)
  */
 public class Empty implements AsciiBlock {
   // +--------------+------------------------------------------------------
@@ -26,8 +26,7 @@ public class Empty implements AsciiBlock {
    *
    * @return row i.
    *
-   * @exception Exception
-   *   if i is outside the range of valid rows.
+   * @exception Exception if i is outside the range of valid rows.
    */
   public String row(int i) throws Exception {
     throw new Exception("Empty block");
@@ -54,11 +53,9 @@ public class Empty implements AsciiBlock {
   /**
    * Determine if another block is structurally equivalent to this block.
    *
-   * @param other
-   *   The block to compare to this block.
+   * @param other The block to compare to this block.
    *
-   * @return true if the two blocks are structurally equivalent and
-   *    false otherwise.
+   * @return true if the two blocks are structurally equivalent and false otherwise.
    */
   public boolean eqv(AsciiBlock other) {
     return other instanceof Empty;

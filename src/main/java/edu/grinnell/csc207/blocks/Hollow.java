@@ -4,7 +4,8 @@ package edu.grinnell.csc207.blocks;
  * A hollow version of an ASCII block.
  *
  * @author Samuel A. Rebelsky
- * @author Your Name Here
+ * @author Leonardo Alves Nunes
+ * @author Sal Karki
  */
 public class Hollow implements AsciiBlock {
   // +--------+------------------------------------------------------------
@@ -23,8 +24,7 @@ public class Hollow implements AsciiBlock {
   /**
    * Build a new block with the specified contents.
    *
-   * @param original
-   *   The original block.
+   * @param original The original block.
    */
   public Hollow(AsciiBlock original) {
     this.block = original;
@@ -41,18 +41,18 @@ public class Hollow implements AsciiBlock {
    *
    * @return row i.
    *
-   * @exception Exception
-   *   If the row is invalid.
+   * @exception Exception If the row is invalid.
    */
   public String row(int i) throws Exception {
     String row = new String("");
-    if (i == 0){
+    if (i == 0) {
       row = block.row(i);
     } else if (i == block.height() - 1) {
       row = block.row(i);
     } else {
-      row = block.row(i).substring(0,1).concat(" ".repeat(block.width() - 2)).concat(block.row(i).substring(block.width() - 1));
-    }
+      row = block.row(i).substring(0, 1).concat(" ".repeat(block.width() - 2))
+          .concat(block.row(i).substring(block.width() - 1));
+    } // if else
     return row;
   } // row(int)
 
@@ -77,17 +77,22 @@ public class Hollow implements AsciiBlock {
   /**
    * Determine if another block is structurally equivalent to this block.
    *
-   * @param other
-   *   The block to compare to this block.
+   * @param other The block to compare to this block.
    *
-   * @return true if the two blocks are structurally equivalent and
-   *    false otherwise.
+   * @return true if the two blocks are structurally equivalent and false otherwise.
    */
   public boolean eqv(AsciiBlock other) {
     return ((other instanceof Hollow) && (this.eqv((Hollow) other)));
   } // eqv(AsciiBlock)
 
+   /**
+   * Determine if another block is structurally equivalent to this block.
+   *
+   * @param other The block to compare to this block.
+   *
+   * @return true if the two blocks are structurally equivalent and false otherwise.
+   */
   public boolean eqv(Hollow other) {
     return (this.block == other.block);
   } // class Trimmed
-}
+} // class Hollow

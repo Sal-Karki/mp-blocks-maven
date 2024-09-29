@@ -3,8 +3,7 @@ package edu.grinnell.csc207.blocks;
 import java.util.Arrays;
 
 /**
- * Multiple lines of text. The lines are left aligned. Used mostly for
- * testing.
+ * Multiple lines of text. The lines are left aligned. Used mostly for testing.
  *
  * @author Samuel A. Rebelsky
  */
@@ -14,8 +13,7 @@ public class Lines implements AsciiBlock {
   // +--------+
 
   /**
-   * All of the lines, converted to the same width (the width of the
-   * widest string).
+   * All of the lines, converted to the same width (the width of the widest string).
    */
   String[] lines;
 
@@ -31,8 +29,7 @@ public class Lines implements AsciiBlock {
   /**
    * Build a new block.
    *
-   * @param contents
-   *   The contents of the block.
+   * @param contents The contents of the block.
    */
   public Lines(String[] contents) {
     this.lines = Arrays.copyOf(contents, contents.length);
@@ -47,16 +44,14 @@ public class Lines implements AsciiBlock {
 
     // Update the lines to make them the same width.
     for (int i = 0; i < lines.length; i++) {
-      this.lines[i] =
-          this.lines[i] + " ".repeat(this.width - this.lines[i].length());
+      this.lines[i] = this.lines[i] + " ".repeat(this.width - this.lines[i].length());
     } // for
   } // Lines(String[])
 
   /**
    * Build a new block from a single line, splitting at newlines.
    *
-   * @param contents
-   *   The contents of the block.
+   * @param contents The contents of the block.
    */
   public Lines(String contents) {
     this(contents.split("\n"));
@@ -73,8 +68,7 @@ public class Lines implements AsciiBlock {
    *
    * @return row i.
    *
-   * @exception Exception
-   *   if i is outside the range of valid rows.
+   * @exception Exception if i is outside the range of valid rows.
    */
   public String row(int i) throws Exception {
     if ((i < 0) || (i >= this.height())) {
@@ -104,13 +98,38 @@ public class Lines implements AsciiBlock {
   /**
    * Determine if another block is structurally equivalent to this block.
    *
-   * @param other
-   *   The block to compare to this block.
+   * @param other The block to compare to this block.
    *
-   * @return true if the two blocks are structurally equivalent and
-   *    false otherwise.
+   * @return true if the two blocks are structurally equivalent and false otherwise.
    */
   public boolean eqv(AsciiBlock other) {
-    return false;       // STUB
+    return ((other instanceof Lines) && (this.eqv((Lines) other)));
   } // eqv(AsciiBlock)
+
+  /**
+   * Determine if this Lines block is structurally equivalent to another Lines block.
+   *
+   * @param other The Lines block to compare to this block.
+   *
+   * @return true if the two blocks are structurally equivalent and false otherwise.
+   */
+  public boolean eqv(Lines other) {
+    // Check height and width
+    if (this.height() != other.height() || this.width() != other.width()) {
+      return false; // Different dimensions
+    } // if
+
+    // Compare each line
+    for (int i = 0; i < this.height(); i++) {
+      try {
+        if (!this.row(i).equals(other.row(i))) {
+          return false; // Lines differ
+        } // if
+      } catch (Exception e) {
+        return false; // Row access failed
+      } // try catch
+    } // for
+
+    return true; // All checks passed
+  } // eqv(Lines)
 } // class Lines

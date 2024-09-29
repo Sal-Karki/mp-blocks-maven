@@ -4,7 +4,8 @@ package edu.grinnell.csc207.blocks;
  * A trimmed ASCII block.
  *
  * @author Samuel A. Rebelsky
- * @author Your Name Here
+ * @author Leonardo Alves Nunes
+ * @author Sal Karki
  */
 public class Trimmed implements AsciiBlock {
   // +--------+------------------------------------------------------------
@@ -78,73 +79,7 @@ public class Trimmed implements AsciiBlock {
    *   If the row is invalid.
    */
   public String row(int i) throws Exception {
-    String row = new String("");
-    switch(halign) {
-      case LEFT:
-        switch (valign) {
-          case TOP:
-            if(i < this.height){
-              row = block.row(i).substring(0,this.width);
-            }
-            break;
-        
-          case BOTTOM:
-            if(i > block.height() - this.height){
-              row = block.row(i + (block.height() - this.height)).substring(0,this.width);
-            }
-            break;
-
-          default: // CENTER
-            if (i >= (block.height() - this.height()) / 2 && i < ((block.height() - this.height()) / 2)) {
-              row = block.row(i + ((block.height() - this.height)) / 2).substring(0,this.width);
-            }
-            break;
-        }
-        break;
-
-      case RIGHT:
-        switch (valign) {
-          case TOP:
-            if(i < this.height){
-              row = block.row(i).substring(this.width, block.width());
-            }
-            break;
-        
-          case BOTTOM:
-            if(i > block.height() - this.height){
-              row = block.row(i + (block.height() - this.height)).substring(this.width, block.width());
-            }
-            break;
-
-          default: // CENTER
-            if (i >= (block.height() - this.height()) / 2 && i < ((block.height() - this.height()) / 2)) {
-              row = block.row(i + ((block.height() - this.height)) / 2).substring(this.width, block.width());
-            }
-            break;
-        }
-    
-      default: // CENTER
-        switch (valign) {
-          case TOP:
-            if(i < this.height){
-              row = block.row(i).substring(((block.width() - this.width) / 2), ((block.width() + this.width) / 2));
-            }
-            break;
-        
-          case BOTTOM:
-            if(i > block.height() - this.height){
-              row = block.row(i + (block.height() - this.height)).substring(((block.width() - this.width) / 2), ((block.width() + this.width) / 2));
-            }
-            break;
-
-          default: // CENTER
-            if (i >= (block.height() - this.height()) / 2 && i < ((block.height() - this.height()) / 2)) {
-              row = block.row(i + ((block.height() - this.height)) / 2).substring(((block.width() - this.width) / 2), ((block.width() + this.width) / 2));
-            }
-            break;
-        }
-    }
-    return row;
+    throw new Exception("Not yet implemented"); // STUB
   } // row(int)
 
   /**
@@ -153,7 +88,7 @@ public class Trimmed implements AsciiBlock {
    * @return the number of rows
    */
   public int height() {
-    return this.height;
+    return 0;   // STUB
   } // height()
 
   /**
@@ -162,7 +97,7 @@ public class Trimmed implements AsciiBlock {
    * @return the number of columns
    */
   public int width() {
-    return this.width;
+    return 0;   // STUB
   } // width()
 
   /**
@@ -175,13 +110,6 @@ public class Trimmed implements AsciiBlock {
    *    false otherwise.
    */
   public boolean eqv(AsciiBlock other) {
-    return ((other instanceof Trimmed) && (this.eqv((Trimmed) other)));
-  } // eqv(AsciiBlock)
-
-  public boolean eqv(Trimmed other) {
-    return (this.block == other.block) && (this.halign == other.halign)
-     && (this.valign == other.valign)
-     && (this.width == other.width) 
-     && (this.height == other.height) ;
+    return false;       // STUB
   } // eqv(AsciiBlock)
 } // class Trimmed

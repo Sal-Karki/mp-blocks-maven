@@ -6,7 +6,8 @@ import java.util.Arrays;
  * The horizontal composition of blocks.
  *
  * @author Samuel A. Rebelsky
- * @author Your Name Here
+ * @author Leonardo Alves Nunes
+ * @author Sal Karki
  */
 public class HComp implements AsciiBlock {
   // +--------+------------------------------------------------------------
@@ -30,15 +31,11 @@ public class HComp implements AsciiBlock {
   /**
    * Build a horizontal composition of two blocks.
    *
-   * @param alignment
-   *   The way in which the blocks should be aligned.
-   * @param leftBlock
-   *   The block on the left.
-   * @param rightBlock
-   *   The block on the right.
+   * @param alignment The way in which the blocks should be aligned.
+   * @param leftBlock The block on the left.
+   * @param rightBlock The block on the right.
    */
-  public HComp(VAlignment alignment, AsciiBlock leftBlock,
-      AsciiBlock rightBlock) {
+  public HComp(VAlignment alignment, AsciiBlock leftBlock, AsciiBlock rightBlock) {
     this.align = alignment;
     this.blocks = new AsciiBlock[] {leftBlock, rightBlock};
   } // HComp(VAlignment, AsciiBlock, AsciiBlock)
@@ -46,10 +43,8 @@ public class HComp implements AsciiBlock {
   /**
    * Build a horizontal composition of multiple blocks.
    *
-   * @param alignment
-   *   The alignment of the blocks.
-   * @param blocksToCompose
-   *   The blocks we will be composing.
+   * @param alignment The alignment of the blocks.
+   * @param blocksToCompose The blocks we will be composing.
    */
   public HComp(VAlignment alignment, AsciiBlock[] blocksToCompose) {
     this.align = alignment;
@@ -67,8 +62,7 @@ public class HComp implements AsciiBlock {
    *
    * @return row i.
    *
-   * @exception Exception
-   *   if i is outside the range of valid rows.
+   * @exception Exception if i is outside the range of valid rows.
    */
   public String row(int i) throws Exception {
     String row = new String("");
@@ -81,29 +75,30 @@ public class HComp implements AsciiBlock {
           } else {
             row = row.concat(" ".repeat(block.width()));
           } // if else
-        } // for   
+        } // for
         break;
-    
+
       case BOTTOM:
-      for (AsciiBlock block : blocks) {
-        if (i < this.height() - block.height()) {
-          row = row.concat(" ".repeat(block.width()));
-        } else {
-          row = row.concat(block.row(i - (this.height() - block.height())));
-        } // if else
-      } // for   
-      break;
+        for (AsciiBlock block : blocks) {
+          if (i < this.height() - block.height()) {
+            row = row.concat(" ".repeat(block.width()));
+          } else {
+            row = row.concat(block.row(i - (this.height() - block.height())));
+          } // if else
+        } // for
+        break;
 
       default: // CENTER
         for (AsciiBlock block : blocks) {
-          if (i < (this.height() - block.height()) / 2 || i >= ((this.height() + block.height()) / 2)) {
+          if (i < (this.height() - block.height()) / 2
+              || i >= ((this.height() + block.height()) / 2)) {
             row = row.concat(" ".repeat(block.width()));
           } else {
             row = row.concat(block.row(i - ((this.height() - block.height()) / 2)));
           } // if else
-        } // for 
-    }
-    return row;  // STUB
+        } // for
+    } // switch
+    return row;
   } // row(int)
 
   /**
@@ -113,14 +108,14 @@ public class HComp implements AsciiBlock {
    */
   public int height() {
     int maxHeight = 0;
-    //find the maximum height among blocks to set as height
+    // find the maximum height among blocks to set as height
 
-    for(AsciiBlock block : blocks) {
+    for (AsciiBlock block : blocks) {
       if (block.height() > maxHeight) {
         maxHeight = block.height();
-      }
+      } // if
     } // for
-    return maxHeight;   // STUB
+    return maxHeight;
   } // height()
 
   /**
@@ -131,28 +126,41 @@ public class HComp implements AsciiBlock {
   public int width() {
     int totalWidth = 0;
 
-    //Sum the height of the blocks to set as width
-    for(AsciiBlock block : blocks) {
+    // Sum the height of the blocks to set as width
+    for (AsciiBlock block : blocks) {
       totalWidth += block.width();
     } // for
-    return totalWidth; 
+    return totalWidth;
   } // width()
 
   /**
    * Determine if another block is structurally equivalent to this block.
    *
-   * @param other
-   *   The block to compare to this block.
+   * @param other The block to compare to this block.
    *
-   * @return true if the two blocks are structurally equivalent and
-   *    false otherwise.
+   * @return true if the two blocks are structurally equivalent and false otherwise.
    */
   public boolean eqv(AsciiBlock other) {
     return ((other instanceof HComp) && (this.eqv((HComp) other)));
   } // eqv(AsciiBlock)
 
+   /**
+   * Determine if another block is structurally equivalent to this block.
+   *
+   * @param other The block to compare to this block.
+   *
+   * @return true if the two blocks are structurally equivalent and false otherwise.
+   */
   public boolean eqv(HComp other) {
-    return (this.blocks == other.blocks) && (this.align == other.align);
+
+    boolean isEqual = true;
+    for (int i = 0; i < this.blocks.length - 1; i++) {
+      if (!this.blocks[i].eqv(other.blocks[i])) {
+        isEqual = false;
+      } // if
+    } // for
+
+    return isEqual && (this.align == other.align);
   } // eqv(AsciiBlock)
 
 
