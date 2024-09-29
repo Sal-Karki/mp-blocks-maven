@@ -78,7 +78,14 @@ public class Line implements AsciiBlock {
    *    false otherwise.
    */
   public boolean eqv(AsciiBlock other) {
-    return false;       // STUB
+    // Check if 'other' is an instance of Line
+    if (!(other instanceof Line)) {
+      return false;
+    }
+
+    // Compare the contents of the lines
+    Line otherLine = (Line) other;
+    return this.line.equals(otherLine.line);
   } // eqv(AsciiBlock)
 
   // +---------------+-----------------------------------------------

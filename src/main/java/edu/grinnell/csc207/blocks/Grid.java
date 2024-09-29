@@ -62,8 +62,19 @@ public class Grid implements AsciiBlock {
    *   If the row is invalid.
    */
   public String row(int i) throws Exception {
-    throw new Exception("Not yet implemented"); // STUB
-  } // row(int)
+    if (i < 0 || i >= height()) {
+        throw new Exception("Invalid row index: " + i);
+    }
+
+    int blockRowIndex = i % element.height();
+    String result = ""; // Initialize an empty string
+
+    for (int j = 0; j < hreps; j++) {
+        result += element.row(blockRowIndex); // Concatenate the row from the element
+    }
+
+    return result;
+} // row(int)
 
   /**
    * Determine how many rows are in the block.
@@ -71,7 +82,7 @@ public class Grid implements AsciiBlock {
    * @return the number of rows
    */
   public int height() {
-    return 0;   // STUB
+    return element.height() * vreps;   // STUB
   } // height()
 
   /**
@@ -80,7 +91,7 @@ public class Grid implements AsciiBlock {
    * @return the number of columns
    */
   public int width() {
-    return 0;   // STUB
+    return element.width() * hreps;   // STUB
   } // width()
 
   /**
@@ -96,17 +107,8 @@ public class Grid implements AsciiBlock {
     return ((other instanceof Grid) && (this.eqv((Grid) other)));
   } // eqv(AsciiBlock)
 
-  /**
-   * Determine if another grid is structurally equivalent to this grid.
-   *
-   * @param other
-   *   The grid to compare to this grid.
-   *
-   * @return true if the two blocks are structurally equivalent and
-   *    false otherwise.
-   */
   public boolean eqv(Grid other) {
     return (this.hreps == other.hreps) && (this.vreps == other.hreps)
         && (this.element.eqv(other.element));
   } // eqv(Grid)
-} // class Grid
+}

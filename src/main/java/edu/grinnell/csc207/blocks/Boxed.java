@@ -101,9 +101,17 @@ public class Boxed implements AsciiBlock {
    *    false otherwise.
    */
   public boolean eqv(AsciiBlock other) {
-    return false;       // STUB
-  } // eqv(AsciiBlock)
+    // Step 1: Check if other is an instance of Boxed
+    if (!(other instanceof Boxed)) {
+        return false;
+    }
 
+    // Step 2: Cast to Boxed and compare contents
+    Boxed otherBoxed = (Boxed) other;
+
+    // Step 3: Return the result of the eqv comparison on the contents
+    return this.contents.eqv(otherBoxed.contents);
+}
   /**
    * Determine if another Boxed is structurally equivalent to this block.
    *
