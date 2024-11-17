@@ -102,9 +102,13 @@ public class VComp implements AsciiBlock {
         for (AsciiBlock block : blocks) {
           currentHeight = previousHeight + block.height();
           if (i < currentHeight) {
+            if ((this.width() - block.width()) % 2 == 0) {
+              String spaces = " ".repeat((this.width() - block.width()) / 2);
+              row = spaces.concat(block.row(i - previousHeight)).concat(spaces);
+              break;
+            } // if
             String spaces = " ".repeat((this.width() - block.width()) / 2);
-
-            row = spaces.concat(block.row(i - previousHeight)).concat(spaces);
+            row = spaces.concat(block.row(i - previousHeight)).concat(spaces).concat(" ");
             break;
           } else {
             previousHeight = currentHeight;

@@ -1,0 +1,2 @@
+- We changed VComp class for the Center case so that spaces behave as expected when fitting an even string to and odd width.
+- Removed STUBs
